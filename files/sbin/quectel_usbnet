@@ -1,0 +1,42 @@
+#!/bin/sh
+
+read_usbnet_response() {
+	cat "$DEVICE" > /tmp/quectel_usbnet_response.txt &
+	CAT_PID=$!
+	echo -ne 'AT+QCFG="usbnet"\r' > "$DEVICE"
+	sleep 3
+	kill $CAT_PID
+	RESPONSE=$(tr '\r\n' ' ' < /tmp/quectel_usbnet_response.txt)
+	rm /tmp/quectel_usbnet_response.txt
+}
+
+for DEVICE in /dev/ttyUSB3 /dev/ttyUSB7 /dev/ttyUSB11; do
+	for i in $(seq 1 5); do
+		[ -e "$DEVICE" ] && break
+		sleep 2
+		[ $i -eq 5 ] && exit
+	done
+
+	for i in $(seq 1 5); do
+		read_usbnet_response
+
+		if echo "$RESPONSE" | grep -q '+QCFG: "usbnet",2'; then
+			logger -t quectel_usbnet "Modem on $DEVICE is already in MBIM mode."
+			break
+		fi
+
+		if [ $i -eq 5 ]; then
+			if echo "$RESPONSE" | grep -q 'OK'; then
+				logger -t quectel_usbnet "Modem on $DEVICE is not in MBIM mode. Switching to MBIM mode."
+				echo -ne 'AT+QCFG="usbnet",2\r' > "$DEVICE"
+				sleep 2
+				logger -t quectel_usbnet "Restarting modem on $DEVICE."
+				echo -ne 'AT+CFUN=1,1\r' > "$DEVICE"
+			else
+				logger -t quectel_usbnet "Unexpected response from modem on $DEVICE: $RESPONSE"
+			fi
+		else
+			logger -t quectel_usbnet "Modem on $DEVICE may not be in MBIM mode. Checking again. Response: $RESPONSE"
+		fi
+	done
+done
