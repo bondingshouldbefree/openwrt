@@ -1,0 +1,42 @@
+{
+  "inbounds": [
+    {
+      "port": 12345,
+      "listen": "127.0.0.1",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "followRedirect": true
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tproxy": "tproxy"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "IP",
+            "port": 31352,
+            "users": [
+              {
+                "id": "ID",
+                "security": "zero"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "sockopt": {
+          "mptcp": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+
+config defaults
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option synflood_protect '1'
+
+config zone
+	option name 'lan'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'ACCEPT'
+	list network 'lan'
+
+config zone
+	option name 'wan'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	option mtu_fix '1'
+	list network 'wwan1'
+	list network 'wwan2'
+	list network 'wwan3'
+	list network 'wan1'
+	list network 'wan2'
+	list network 'wan3'
+	list network 'wan4'
+	list network 'wan5'
+
+config forwarding
+	option src 'lan'
+	option dest 'wan'
