@@ -1,33 +1,17 @@
-![OpenWrt logo](include/logo.png)
+<picture>
+  <source srcset="include/logolight.png" media="(prefers-color-scheme: dark)">
+  <source srcset="include/logodark.png" media="(prefers-color-scheme: light)">
+  <img src="include/logolight.png" alt="openwrtmptcp Logo">
+</picture>
 
-OpenWrt Project is a Linux operating system targeting embedded devices. Instead
-of trying to create a single, static firmware, OpenWrt provides a fully
-writable filesystem with package management. This frees you from the
-application selection and configuration provided by the vendor and allows you
-to customize the device through the use of packages to suit any application.
-For developers, OpenWrt is the framework to build an application without having
-to build a complete firmware around it; for users this means the ability for
-full customization, to use the device in ways never envisioned.
+FusionLink Multipath Bonding based on openwrtmptcp is a fork of OpenWrt that integrates Multipath TCP (MPTCP), providing advanced network aggregation and redundancy capabilities. This project leverages an upstream kernel and is currently focused on supporting the Banana Pi BPi R4, with plans to expand support to all OpenWrt-compatible devices. The main goal of openwrtmptcp is to combine multiple internet connections into a single connection to improve both bandwidth throughput and network reliability. By aggregating multiple internet breakouts, users can achieve better performance and maintain connectivity even if one of the connections fails.
 
-Sunshine!
+## Key Features
 
-## Download
-
-Built firmware images are available for many architectures and come with a
-package selection to be used as WiFi home router. To quickly find a factory
-image usable to migrate from a vendor stock firmware to OpenWrt, try the
-*Firmware Selector*.
-
-* [OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)
-
-If your device is supported, please follow the **Info** link to see install
-instructions or consult the support resources listed below.
-
-## 
-
-An advanced user may require additional or specific package. (Toolchain, SDK, ...) For everything else than simple firmware download, try the wiki download page:
-
-* [OpenWrt Wiki Download](https://openwrt.org/downloads)
+* Multipath TCP (MPTCP) for network aggregation and redundancy.
+* Focused support for Banana Pi BPi R4, with future support planned for all OpenWrt devices.
+* Uses an upstream kernel for compatibility and stability.
+* Aims to provide out-of-the-box functionality: all necessary configurations are pre-installed and ready to use from boot.
 
 ## Development
 
@@ -37,30 +21,7 @@ case sensitive file system.
 
 ### Requirements
 
-You need the following tools to compile OpenWrt, the package names vary between
-distributions. A complete list with distribution specific packages is found in
-the [Build System Setup](https://openwrt.org/docs/guide-developer/build-system/install-buildsystem)
-documentation.
-
-```
-binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev
-make4.1+ perl python3.7+ rsync subversion unzip which
-```
-
 ### Quickstart
-
-1. Run `./scripts/feeds update -a` to obtain all the latest package definitions
-   defined in feeds.conf / feeds.conf.default
-
-2. Run `./scripts/feeds install -a` to install symlinks for all obtained
-   packages into package/feeds/
-
-3. Run `make menuconfig` to select your preferred configuration for the
-   toolchain, target system & firmware packages.
-
-4. Run `make` to build your firmware. This will download all sources, build the
-   cross-compile toolchain and then cross-compile the GNU/Linux kernel & all chosen
-   applications for your target system.
 
 ### Related Repositories
 
@@ -83,7 +44,9 @@ packages to OpenWrt, please find the fitting repository below.
 
 ## Support Information
 
-For a list of supported devices see the [OpenWrt Hardware Database](https://openwrt.org/supported_devices)
+Currently the project supports the [Banana Pi BPI-R4](https://wiki.banana-pi.org/Banana_Pi_BPI-R4)
+
+More hardware coming soon!
 
 ### Documentation
 
@@ -94,14 +57,9 @@ For a list of supported devices see the [OpenWrt Hardware Database](https://open
 
 ### Support Community
 
-* [Forum](https://forum.openwrt.org): For usage, projects, discussions and hardware advise.
-* [Support Chat](https://webchat.oftc.net/#openwrt): Channel `#openwrt` on **oftc.net**.
-
-### Developer Community
-
-* [Bug Reports](https://bugs.openwrt.org): Report bugs in OpenWrt
-* [Dev Mailing List](https://lists.openwrt.org/mailman/listinfo/openwrt-devel): Send patches
-* [Dev Chat](https://webchat.oftc.net/#openwrt-devel): Channel `#openwrt-devel` on **oftc.net**.
+* [Discord]([https://forum.openwrt.org](https://discord.gg/qJ7KP6SQxC)): For usage, projects, discussions and hardware advise.
+* [Pre-configured Devices](https://xpedite-tech.com/fusion-x/): Pre built Banana PI Bpi R4 with the firmware pre-installed is available for purchase.
+* Wiki coming soon!
 
 ## License
 
